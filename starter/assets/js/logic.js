@@ -7,13 +7,27 @@ const questionsDiv = document.querySelector("#questions");
 
 // Function to start the quiz
 function startQuiz() {
-
+    startScreen.classList.add("hide");
+    questionsDiv.classList.remove("hide");
+    startTimer();
+    getQuestion();
+    console.log("Quiz started!");
 };
 
 // Function to display the current question and answers
+let i = 0;
 function getQuestion() {
-    questionTitle.innerHTML = questions[i].question;
-    choicesDiv.innerHTML = "";
+    const question = questions[i].question;
+    const answers = questions[i].answers;
+    questionsDiv.textContent = question;
+    for (let j = 0; j < answers.length; j++) {
+        const button = document.createElement("button");
+        button.textContent = answers[j];
+        button.classList.add("btn");
+        button.setAttribute("data-index", j);
+        // button.addEventListener("click", handleAnswerClick);
+        questionsDiv.appendChild(button);
+    }
 };
 // Function to handle a user clicking an answer button
 
@@ -27,6 +41,7 @@ function startTimer() {
     const timer = setInterval(function() {
         if (timeLeft > 0) {
             timeLeft--;
+            timerElement.textContent = timeLeft;
         } else {
             clearInterval(timer);
         }
@@ -37,7 +52,7 @@ function startTimer() {
 // Define the event listeners
 
 // Start button listener to call startQuiz function
-startButton.addEventListener('click', startTimer);
+startButton.addEventListener("click", startQuiz);
 // Answer button listener to call handleAnswerClick function
 
 // Call the startQuiz function to begin the quiz
