@@ -10,7 +10,6 @@ To help you become familiar with these tests and give you a chance to apply the 
 ## User Story
 
 ```
-AS A coding boot camp student
 I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 SO THAT I can gauge my progress compared to my peers
 ```
@@ -76,13 +75,9 @@ This challenge is graded based on the following criteria:
 * Repository contains quality README file with description, screenshot, and link to deployed application.
 
 
-## Review
 
 You are required to submit BOTH of the following for review:
 
 * The URL of the functional, deployed application.
 
 * The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
----
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
