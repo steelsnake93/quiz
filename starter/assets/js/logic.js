@@ -3,6 +3,7 @@ const startButton = document.querySelector("#start");
 const timerElement = document.querySelector("#time");
 const startScreen = document.querySelector("#start-screen");
 const questionsDiv = document.querySelector("#questions");
+timeLeft = 60;
 // Define an array of objects representing questions and possible answers
 
 // Function to start the quiz
@@ -25,25 +26,44 @@ function getQuestion() {
         button.textContent = answers[j];
         button.classList.add("btn");
         button.setAttribute("data-index", j);
-        // button.addEventListener("click", handleAnswerClick);
+        button.addEventListener("click", handleAnswerClick);
         questionsDiv.appendChild(button);
     }
 };
 // Function to handle a user clicking an answer button
-
+function handleAnswerClick(event) {
+    const selectedButton = event.target;
+    const correctAnswer = questions[i].correct;
+    const userAnswer = selectedButton.textContent;
+    if (userAnswer === questions[i].answers[correctAnswer]) {
+        timeLeft += 5;
+        console.log('correct');
+    } else {
+        timeLeft -= 10;
+        console.log('incorrect');
+    }
+    timerElement.textContent = timeLeft;
+    if (i < questions.length - 1) {
+        i++;
+        getQuestion();
+    } else {
+        endQuiz();
+    }
+};
 // Function to end the quiz
 function endQuiz() {
-    console.log(answers);
+    clearInterval(timer);
 };
 // Function to update the timer display
+let timer;
 function startTimer() {
-    let timeLeft = 60;
-    const timer = setInterval(function() {
+    timer = setInterval(function() {
         if (timeLeft > 0) {
             timeLeft--;
             timerElement.textContent = timeLeft;
         } else {
             clearInterval(timer);
+            
         }
     }, 1000);
 };
@@ -54,5 +74,5 @@ function startTimer() {
 // Start button listener to call startQuiz function
 startButton.addEventListener("click", startQuiz);
 // Answer button listener to call handleAnswerClick function
-
+// choicesDiv.addEventListener('click', handleAnswerClick);
 // Call the startQuiz function to begin the quiz
