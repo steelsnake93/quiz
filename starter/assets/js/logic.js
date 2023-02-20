@@ -5,6 +5,7 @@ const startScreen = document.querySelector("#start-screen");
 const setQuestion = document.querySelector("#question-title");
 const setChoices = document.querySelector("#choices");
 const questionsDiv = document.querySelector("#questions");
+const endScreen = document.querySelector("#end-screen");
 timeLeft = 60;
 // Define an array of objects representing questions and possible answers
 
@@ -36,12 +37,21 @@ function handleAnswerClick(event) {
     const selectedButton = event.target;
     const correctAnswer = questions[i].correct;
     const userAnswer = selectedButton.textContent;
+    const feedback = document.createElement('p');
     if (userAnswer === questions[i].answers[correctAnswer]) {
+        feedback.textContent = 'Correct';
         timeLeft += 5;
     } else {
+        feedback.textContent = 'Incorrect';
         timeLeft -= 10;
     }
     timerElement.textContent = timeLeft;
+
+    const previousFeedback = questionsDiv.querySelector('p');
+    if (previousFeedback) {
+        questionsDiv.removeChild(previousFeedback);
+    }
+    questionsDiv.appendChild(feedback);
     if (i < questions.length - 1) {
         i++;
         getQuestion();
@@ -52,6 +62,10 @@ function handleAnswerClick(event) {
 // Function to end the quiz
 function endQuiz() {
     clearInterval(timer);
+    questionsDiv.classList.add('hide');
+    endScreen.classList.remove('hide');
+    const finalScore = document.querySelector('#final-score');
+    finalScore.textContent = timeLeft;
 };
 // Function to update the timer display
 let timer;
