@@ -6,6 +6,9 @@ const setQuestion = document.querySelector("#question-title");
 const setChoices = document.querySelector("#choices");
 const questionsDiv = document.querySelector("#questions");
 const endScreen = document.querySelector("#end-screen");
+const submitButton = document.querySelector('#submit');
+const initialInput = document.querySelector('#initials');
+const finalScore = document.querySelector('#final-score');
 timeLeft = 60;
 // Define an array of objects representing questions and possible answers
 
@@ -64,7 +67,6 @@ function endQuiz() {
     clearInterval(timer);
     questionsDiv.classList.add('hide');
     endScreen.classList.remove('hide');
-    const finalScore = document.querySelector('#final-score');
     finalScore.textContent = timeLeft;
 };
 // Function to update the timer display
@@ -79,6 +81,19 @@ function startTimer() {
         }
     }, 1000);
 };
+// Function to handle submit button click
+function handleForSubmit(event) {
+    event.preventDefault();
+    const initialInput = document.querySelector('#initials');
+    const initials = initialInput.value.toUpperCase();
+    const highScores = JSON.parse(localStorage.getItem('highScores') || '[]');
+    highScores.push({ initials, score: timeLeft });
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    window.location.href = 'highscores.html';
+};
+
+submitButton.addEventListener('click', handleForSubmit);
+
 // Function to save high score
 
 // Define the event listeners
